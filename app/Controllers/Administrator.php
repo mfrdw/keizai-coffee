@@ -6,20 +6,20 @@ use CodeIgniter\Controller;
 
 class Administrator extends BaseController
 {
-    public function index(): string
+    public function index()
     {
-        // Mengambil isi dari header.php dan footer.php
-        $header = view('layout/header');
-        $sidebar = view('layout/sidebar');
-        $footer = view('layout/footer');
+        $data = [
+            'title' => 'Beranda'
+        ];
+        return view('admin/dashboard', $data);
+        
+    }
 
-        // Menggabungkan semua isi tampilan
-        $output = $header;
-        $output .= $sidebar;
-        $output .= view('admin/dashboard');
-        $output .= $footer;
-
-        // Mengembalikan tampilan lengkap
-        return $output;
+    public function listproduct()
+    {
+        $data = [
+            'title' => 'List Produk'
+        ];
+        return view('admin/listproduct', $data);
     }
 }

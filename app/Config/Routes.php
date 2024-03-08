@@ -7,3 +7,4 @@ use CodeIgniter\Router\RouteCollection;
  */
 // $routes->get('/', 'Home::index');
 $routes->get('/', 'Administrator::index');
+$routes->get('/listproduct', 'Administrator::listproduct');

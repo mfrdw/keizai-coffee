@@ -1,7 +1,11 @@
-<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark" id="sidenav-main" style="width: 200px; padding: 20px;">
+<aside
+    class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark"
+    id="sidenav-main">
     <div class="sidenav-header">
-        <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
+        <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+            aria-hidden="true" id="iconSidenav"></i>
+        <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard "
+            target="_blank">
             <img src="<?php echo base_url('assets/img/logo-ct.png') ?>" class="navbar-brand-img h-100" alt="main_logo">
             <span class="ms-1 font-weight-bold text-white">Administrator</span>
         </a>
@@ -12,18 +16,29 @@
             <li class="nav-item">
                 <!-- Foto profil dengan lingkaran warna -->
                 <div class="text-center mb-3">
-                    <div class="rounded-circle bg-primary d-inline-block" style="width: 60px; height: 60px; line-height: 60px;">
+                    <div class="rounded-circle bg-primary d-inline-block"
+                        style="width: 60px; height: 60px; line-height: 60px;">
                         <span class="text-white"></span>
                     </div>
                     <div class="mt-2 text-white">Halo, Admin</div>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white active bg-gradient-primary" href="../pages/dashboard.html">
+                <a class="nav-link text-white <?= $title == 'Beranda' ? "active bg-gradient-primary " : ""; ?>"
+                    href="/">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">dashboard</i>
                     </div>
                     <span class="nav-link-text ms-1">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white <?= $title == 'List Produk' ? "active bg-gradient-primary " : ""; ?>"
+                    href="/listproduct">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">folder_open</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Produk</span>
                 </a>
             </li>
             <li class="nav-item">
