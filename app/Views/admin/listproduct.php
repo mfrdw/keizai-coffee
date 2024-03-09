@@ -52,7 +52,7 @@
                 <?php foreach ($produk as $p) { ?>
                 <div class="d-flex baris-tabel">
                     <div style="flex:0.5;" class="d-flex justify-content-center">
-                        <img src="/foto/<?= $p['foto_produk'];?>" width="50" height="50">
+                        <img src="/foto/<?= $p['foto_produk'];?>" width="60" height="60">
                     </div>
                     <div style="flex:1;" class="d-flex align-items-center justify-content-center">
                         <p class="text-center m-0"><?= $p['nama_produk'];?></p>
@@ -67,14 +67,16 @@
                         <p class="text-center m-0 <?= $p['stok_produk'] > 0? '':'merah';?>">
                             <?= $p['stok_produk'] > 0? 'Yes':'No';?></p>
                     </div>
-                    <div style="flex:1;" class="d-flex justify-content-center align-items-center gap-3">
-                        <a href="">
-                            <i class="material-icons opacity-10">edit</i>
-                        </a>
-                        <a href="">
-                            <i class="material-icons opacity-10">delete</i>
-                        </a>
-
+                    <div style="flex:1;" class="dropdown d-flex justify-content-center align-items-center gap-3">
+                        <button class="btn btn-dark btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Action
+                        </button>
+                        <ul class="dropdown-menu" style="flex:1;"
+                            class="d-flex justify-content-center align-items-center gap-3">
+                            <li><a class="dropdown-item" href="#">Edit</a></li>
+                            <li><a class="dropdown-item" href="#">Hapus</a></li>
+                        </ul>
                     </div>
                 </div>
                 <?php } ?>

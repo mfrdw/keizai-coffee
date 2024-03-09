@@ -33,22 +33,33 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white <?= $title == 'List Produk' ? "active bg-gradient-primary " : ""; ?>"
-                    href="/listproduct">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">folder_open</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Produk</span>
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link text-white" href="../pages/tables.html">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">table_view</i>
                     </div>
-                    <span class="nav-link-text ms-1">Riwayat Pembeli</span>
+                    <span class="nav-link-text ms-1">Laporan</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link text-white <?= $title == 'List Produk' ? "active bg-gradient-primary " : ""; ?>"
+                    onclick="toggleCollapse()">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i id="produkIcon" class="material-icons opacity-10">folder_open</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Produk</span>
+                </a>
+                <div id="produkCollapse" style="display: none;" class="text-white">
+                    <a class="nav-link text-white" href="/listproduct" onclick="toggleCollapse()">
+                        <i class="material-icons opacity-10" style="font-size: 20px;">arrow_forward</i>
+                        <span class="nav-link-text ms-1">Produk Detail</span>
+                    </a>
+                    <a class="nav-link text-white" href="/listkategori" onclick="toggleCollapse()">
+                        <i class="material-icons opacity-10" style="font-size: 20px;">arrow_forward</i>
+                        <span class="nav-link-text ms-1">Kategori</span>
+                    </a>
+                </div>
+            </li>
+
             <li class="nav-item">
                 <a class="nav-link text-white" href="../pages/billing.html">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -59,4 +70,17 @@
             </li>
         </ul>
     </div>
+    <script>
+    function toggleCollapse() {
+        var collapseDiv = document.getElementById("produkCollapse");
+        var icon = document.getElementById("produkIcon");
+        if (collapseDiv.style.display === "none") {
+            collapseDiv.style.display = "block";
+            icon.innerHTML = "folder";
+        } else {
+            collapseDiv.style.display = "none";
+            icon.innerHTML = "folder_open";
+        }
+    }
+    </script>
 </aside>
