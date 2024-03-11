@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\GambarModel;
+use App\Models\KategoriModel;
 use App\Models\ProdukModel;
 use CodeIgniter\Controller;
 
@@ -10,11 +11,13 @@ class Administrator extends BaseController
 {
 
     protected $produkModel;
+    protected $kategoriModel;
     protected $gambarModel;
     public function __construct()
     {
-        $this->produkModel = new ProdukModel();
-        $this->gambarModel = new GambarModel();
+        $this->produkModel      = new ProdukModel();
+        $this->kategoriModel    = new KategoriModel();
+        $this->gambarModel      = new GambarModel();
     }
     public function index()
     {
@@ -41,4 +44,15 @@ class Administrator extends BaseController
         $this->response->setHeader("Content-Type", "image/webp");
         echo $gambar;
     }
+
+    public function listkategori()
+    {
+        $kategoriAll = $this->kategoriModel->getKategori();
+        $data = [
+            'title' => 'List Kategori',
+            'kategori' => $kategoriAll,
+        ];
+        return view('admin/listkategori', $data);
+    }
+    
 }
