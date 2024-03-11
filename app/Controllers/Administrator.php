@@ -51,6 +51,19 @@ class Administrator extends BaseController
         ];
         return view('admin/addproduct', $data);
     }
+    public function editProduct()
+    {
+        $data = [
+            'title' => 'Edit Produk'
+        ];
+        return view('admin/editProduct', $data);
+    }
+    public function delProduct($id)
+    {
+        $produk = $this->produkModel->where('id', $id)->delete();
+        $gambar = $this->gambarModel->where('id', $id)->delete();
+        return redirect()->to('/listproduct');
+    }
 
 
 

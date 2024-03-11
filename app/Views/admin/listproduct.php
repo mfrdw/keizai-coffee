@@ -74,7 +74,7 @@
                         </button>
                         <ul class="dropdown-menu" style="flex:1;"
                             class="d-flex justify-content-center align-items-center gap-3">
-                            <li><a class="dropdown-item" href="#">Edit</a></li>
+                            <li><a class="dropdown-item" href="/editproduct">Edit</a></li>
                             <li><a class="dropdown-item" href="#">Hapus</a></li>
                         </ul>
                     </div>
