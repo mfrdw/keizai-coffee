@@ -44,6 +44,17 @@ class Administrator extends BaseController
         $this->response->setHeader("Content-Type", "image/webp");
         echo $gambar;
     }
+    public function addProduct()
+    {
+        $data = [
+            'title' => 'Tambah Produk'
+        ];
+        return view('admin/addproduct', $data);
+    }
+
+
+
+
 
     public function listkategori()
     {

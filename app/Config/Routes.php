@@ -8,6 +8,7 @@ use CodeIgniter\Router\RouteCollection;
 
 $routes->get('/', 'Administrator::index');
 $routes->get('/listproduct', 'Administrator::listproduct');
+$routes->get('/addproduct', 'Administrator::addproduct');
 $routes->get('/listkategori', 'Administrator::listkategori');
 
 

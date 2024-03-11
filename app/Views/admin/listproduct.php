@@ -10,7 +10,7 @@
             </div>
             <div>
                 <a class="btn btn-light" href="#">Import Produk</a>
-                <a class="btn btn-dark" href="#">Tambah Produk</a>
+                <a class="btn btn-dark" href="/addproduct">Tambah Produk</a>
             </div>
         </div>
         <div>
