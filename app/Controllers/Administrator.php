@@ -51,6 +51,7 @@ class Administrator extends BaseController
         ];
         return view('admin/addproduct', $data);
     }
+    
     public function editProduct()
     {
         $data = [
@@ -77,6 +78,20 @@ class Administrator extends BaseController
             'kategori' => $kategoriAll,
         ];
         return view('admin/listkategori', $data);
+    }
+    public function addkategori()
+    {
+        $data = [
+            'title' => 'Tambah Kategori'
+        ];
+        return view('admin/addkategori', $data);
+    }
+    public function editKategori()
+    {
+        $data = [
+            'title' => 'Edit Kategori'
+        ];
+        return view('admin/editkategori', $data);
     }
     
 }

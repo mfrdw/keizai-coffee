@@ -23,7 +23,7 @@
                         </a>
                     </div>
                     <div><button class="btn btn-light m-0"><i
-                                class="material-icons opacity-10">filter</i>Filter</button>
+                                class="material-icons opacity-10 m-2">filter_list</i>Filter</button>
                     </div>
                 </div>
             </div>

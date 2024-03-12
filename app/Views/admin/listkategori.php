@@ -9,7 +9,7 @@
                 <h6>Kategori</h6>
             </div>
             <div>
-                <a class="btn btn-dark" href="#">Tambah Kategori</a>
+                <a class="btn btn-dark" href="/addkategori">Tambah Kategori</a>
             </div>
         </div>
         <div>
@@ -22,7 +22,7 @@
                         </a>
                     </div>
                     <div><button class="btn btn-light m-0"><i
-                                class="material-icons opacity-10">filter</i>Filter</button>
+                                class="material-icons opacity-10 m-2 ">filter_list</i>Filter</button>
                     </div>
                 </div>
             </div>
@@ -30,6 +30,9 @@
                 <div class="d-flex w-100 baris-tabel head">
                     <div style="flex:0.5;">
                         <p class="text-center m-0">KATEGORI</p>
+                    </div>
+                    <div style="flex:0.5;">
+                        <p class="text-center m-0">GROUP</p>
                     </div>
                     <div style="flex:1;">
                         <p class="text-center m-0">AKSI</p>
@@ -41,6 +44,9 @@
                     <div style="flex:0.5;" class="d-flex align-items-center justify-content-center">
                         <p class="text-center m-0"><?= $k['nama_kategori'];?></p>
                     </div>
+                    <div style="flex:0.5;" class="d-flex align-items-center justify-content-center">
+                        <p class="text-center m-0"><?= $k['group_kategori'];?></p>
+                    </div>
                     <div style="flex:1;"
                         class="dropdown d-flex justify-content-center align-items-center gap-3 position-relative">
                         <button class="btn btn-dark btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -48,7 +54,7 @@
                             Action
                         </button>
                         <ul class="dropdown-menu" style="flex:1; position: absolute; top: 100%; left: 0;">
-                            <li><a class="dropdown-item" href="#">Edit</a></li>
+                            <li><a class="dropdown-item" href="/editkategori">Edit</a></li>
                             <li><a class="dropdown-item" href="#">Hapus</a></li>
                         </ul>
                     </div>
