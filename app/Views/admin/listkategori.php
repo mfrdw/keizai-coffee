@@ -54,8 +54,9 @@
                             Action
                         </button>
                         <ul class="dropdown-menu" style="flex:1; position: absolute; top: 100%; left: 0;">
-                            <li><a class="dropdown-item" href="/editkategori">Edit</a></li>
-                            <li><a class="dropdown-item" href="#">Hapus</a></li>
+                            <li><a class="dropdown-item" href="/editkategori/<?= $k['id'];?>">Edit</a></li>
+                            <li><a class="dropdown-item hapus-kategori" data-kategori-id="<?= $k['id'];?>">Hapus</a>
+                            </li>
                         </ul>
                     </div>
 
@@ -65,5 +66,29 @@
         </div>
     </dir>
 </div>
+
+
+
+<script>
+$(document).ready(function() {
+    $('.hapus-kategori').click(function() {
+        var kategoriId = $(this).data('kategori-id');
+        Swal.fire({
+            title: 'Apakah Anda yakin ingin menghapus kategori ini?',
+            text: "Anda tidak akan dapat mengembalikan data yang sudah dihapus!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '/delkategori/' + kategoriId;
+            }
+        });
+    });
+});
+</script>
 
 <?= $this->endSection(); ?>

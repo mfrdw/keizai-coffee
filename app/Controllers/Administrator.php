@@ -86,12 +86,81 @@ class Administrator extends BaseController
         ];
         return view('admin/addkategori', $data);
     }
-    public function editKategori()
+
+    public function actionaddkategori()
     {
+        if ($this->request->getMethod() === 'post') {
+            $validation = \Config\Services::validation();
+            $validation->setRules([
+                'nama_kategori' => 'required',
+                'group_kategori' => 'required'
+            ]);
+            if ($validation->withRequest($this->request)->run() == false) {
+                return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+            } else {
+                $kategoriData = [
+                    'nama_kategori' => $this->request->getVar('nama_kategori'),
+                    'group_kategori' => $this->request->getVar('group_kategori')
+                ];
+                $this->kategoriModel->insert($kategoriData);
+                return redirect()->to('/listkategori')->with('success', 'Kategori berhasil ditambahkan.');
+            }
+        } else {
+            $data = [
+                'title' => 'Tambah Kategori'
+            ];
+            return view('admin/addkategori', $data);
+        }
+    }
+    
+    public function editkategori($id)
+    {
+        $kategori = $this->kategoriModel->find($id);
+        if (!$kategori) {
+            session()->setFlashdata('error', 'Kategori tidak ditemukan.');
+            return redirect()->to('/listkategori');
+        }
         $data = [
-            'title' => 'Edit Kategori'
+            'title' => 'Edit Kategori',
+            'kategori' => $kategori
         ];
         return view('admin/editkategori', $data);
+    }
+
+public function actioneditkategori($id)
+    {
+        $kategori = $this->kategoriModel->find($id);
+        if (!$kategori) {
+            session()->setFlashdata('error', 'Kategori tidak ditemukan.');
+            return redirect()->to('/listkategori');
+        }
+        if ($this->request->getMethod() === 'post') {
+            $validation = \Config\Services::validation();
+            $validation->setRules([
+                'nama_kategori' => 'required',
+                'group_kategori' => 'required'
+            ]);
+            if ($validation->withRequest($this->request)->run() == false) {
+                session()->setFlashdata('error', $validation->getErrors());
+                return redirect()->to("/editkategori/$id");
+            } else {
+                $kategoriData = [
+                    'nama_kategori' => $this->request->getVar('nama_kategori'),
+                    'group_kategori' => $this->request->getVar('group_kategori')
+                ];
+                $this->kategoriModel->update($id, $kategoriData);
+                session()->setFlashdata('success', 'Kategori berhasil diperbarui.');
+                return redirect()->to('/listkategori');
+            }
+        }
+        return redirect()->to("/editkategori/$id");
+    }
+
+
+    public function delKategori($id)
+    {
+        $produk = $this->kategoriModel->where('id', $id)->delete();
+        return redirect()->to('/listkategori');
     }
     
 }

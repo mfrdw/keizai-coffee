@@ -13,6 +13,37 @@
                         class="material-icons opacity-10">arrow_back</i> Kembali</a>
             </div>
         </div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="/actionaddkategori" method="post">
+                                <?= csrf_field(); ?>
+                                <div class="form-group">
+                                    <label for="nama_kategori">Nama Kategori</label>
+                                    <input type="text" class="form-control border" id="nama_kategori"
+                                        name="nama_kategori" placeholder="Masukkan nama kategori"
+                                        style="padding: 0.5rem;">
+                                </div>
+                                <div class=" form-group">
+                                    <label for="group_kategori">Group Kategori</label>
+                                    <input type="text" class="form-control border" id="group_kategori"
+                                        name="group_kategori" placeholder="Masukkan group kategori"
+                                        style="padding: 0.5rem;">
+                                </div>
+                                <button type=" submit" class="btn btn-dark" style="margin-top: 10px;">Tambah
+                                    Kategori</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
     </dir>
 </div>
 

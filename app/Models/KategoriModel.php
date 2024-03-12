@@ -16,7 +16,7 @@ class KategoriModel extends Model
     public function getKategori($id = false)
     {
         if ($id == false) {
-            return $this->orderBy('nama_kategori', 'asc')->findAll();
+            return $this->orderBy('id', 'asc')->findAll();
         }
         return $this->where(['id' => $id])->first();
     }
