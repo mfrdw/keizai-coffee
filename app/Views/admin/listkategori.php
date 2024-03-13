@@ -59,7 +59,6 @@
                             </li>
                         </ul>
                     </div>
-
                 </div>
                 <?php } ?>
             </div>

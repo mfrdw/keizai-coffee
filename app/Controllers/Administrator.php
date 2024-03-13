@@ -46,10 +46,72 @@ class Administrator extends BaseController
     }
     public function addProduct()
     {
+        
+        $kategori = $this->kategoriModel->getKategori();   
         $data = [
-            'title' => 'Tambah Produk'
+            'title' => 'Tambah Produk',
+            'kategori' => $kategori
         ];
         return view('admin/addproduct', $data);
+    }
+
+    public function actionaddproduct()
+    {
+        $nama = $this->request->getVar('nama_produk');
+        $harga = $this->request->getVar('harga_produk');
+        $kategori = $this->request->getVar('kategori_produk');
+        $stok = $this->request->getVar('stok_produk');
+        $deskripsi = $this->request->getVar('deskripsi_produk');
+        $foto = file_get_contents($this->request->getFile("foto_produk"));
+        $harga_shopee = $this->request->getVar('harga_ShopeeFood');
+        $harga_gofood = $this->request->getVar('harga_GoFood');
+        $harga_grabfood = $this->request->getVar('harga_GrabFood');
+        $jmlVarian = $this->request->getVar('rahasia_varian');
+        $varian = [];
+
+        // $varian = [
+        //     [
+        //         'nama' => 'apaalh',
+        //         'harga' => 15000
+        //     ],
+        //     [
+        //         'nama' => 'apaalh',
+        //         'harga' => 15000
+        //     ],
+        //     [
+        //         'nama' => 'apaalh',
+        //         'harga' => 15000
+        //     ],
+        // ];
+
+        for ($i=1; $i <= $jmlVarian; $i++) { 
+            $itemVarian = [
+                'nama' => $this->request->getVar('namavarian'.$i),
+                'harga' => $this->request->getVar('hargavarian'.$i)
+            ];
+            array_push($varian, $itemVarian);
+        }
+
+        $id = time();
+        $this->produkModel->insert([
+            'nama_produk' => $nama,
+            'harga_produk' => $harga,
+            'kategori_produk' => $kategori,
+            'stok_produk' => $stok,
+            'deskripsi_produk' => $deskripsi,
+            'varian_produk' => $nama,
+            'harga_shopeefood' => $harga_shopee,
+            'harga_gofood' => $harga_gofood,
+            'harga_grabfood' => $harga_grabfood,
+            'foto_produk' => $id,
+            'varian'=> json_encode($varian)
+        ]);
+
+        $this->gambarModel->insert([
+            'id' => $id,
+            'gambar_produk'=> $foto
+        ]);
+        return redirect()->to('/listproduct');
     }
     
     public function editProduct()

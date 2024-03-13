@@ -13,6 +13,110 @@
                         class="material-icons opacity-10">arrow_back</i> Kembali</a>
             </div>
         </div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="/actionaddproduct" method="post" enctype="multipart/form-data">
+                                <?= csrf_field(); ?>
+                                <div class="d-flex gap-4">
+                                    <div style="flex:1;">
+                                        <label for="nama_produk">Foto Produk</label>
+                                        <img src="/assets/img/prev.png" alt="prev" class="w-100 mb-2" id="fotoprev">
+                                        <div>
+                                            <label class="btn btn-dark" for="inputGroupFile01">Upload</label>
+                                            <input type="file" class="form-control" name="foto_produk"
+                                                id="inputGroupFile01" style="display: none;">
+                                            <a href="#" class="btn btn-primary">Hapus</a>
+                                        </div>
+                                    </div>
+                                    <div style="flex:2;">
+                                        <div class="form-group mb-2">
+                                            <label for="nama_produk">Nama Produk</label>
+                                            <input type="text" class="form-control border" name="nama_produk"
+                                                placeholder="Masukkan nama kategori" style="padding: 0.5rem;">
+                                        </div>
+                                        <div class=" form-group mb-2">
+                                            <label for="harga_produk">Harga Produk</label>
+                                            <input type="number" class="form-control border" name="harga_produk"
+                                                placeholder="Masukkan group kategori" style="padding: 0.5rem;">
+                                        </div>
+                                        <div class="d-flex gap-2 mb-2">
+                                            <div class=" form-group w-100">
+                                                <label for="kategori_produk">Kategori Produk</label>
+                                                <select class="form-select border" name="kategori_produk"
+                                                    aria-label="Default select example" style="padding: 0.5rem;">
+                                                    <option selected>Pilih Kategori</option>
+                                                    <?php foreach ($kategori as $k) { ?>
+                                                    <option value="<?= $k['nama_kategori'] ?>">
+                                                        <?= $k['nama_kategori'] ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                            <div class=" form-group w-100">
+                                                <label for="stok_produk">Stok Produk</label>
+                                                <input type="number" class="form-control border" name="stok_produk"
+                                                    placeholder="Masukkan group kategori" style="padding: 0.5rem;">
+                                            </div>
+                                        </div>
+                                        <div class=" form-group w-100 mb-2">
+                                            <label for="deskripsi_produk">Deskripsi Produk</label>
+                                            <input type="text" class="form-control border" name="deskripsi_produk"
+                                                placeholder="Masukkan group kategori" style="padding: 0.5rem;">
+                                        </div>
+
+                                        <label>Varian Produk</label>
+                                        <div>
+                                            <button id="tambahvarianBtn" class="btn btn-light"><i
+                                                    class="material-icons opacity-10">add</i>
+                                                Tambah Varian</button>
+                                            <div id="container-varian">
+                                                <!-- <div class="d-flex gap-2">
+                                                    <div class="w-100">
+                                                        <input type="text" name="namavarian1" placeholder="Nama Varian"
+                                                            class="form-control border px-2">
+                                                    </div>
+                                                    <div class="w-100">
+                                                        <input type="number" name="hargavarian1"
+                                                            placeholder="Harga Varian" class="form-control border px-2">
+                                                    </div>
+                                                    <div>
+                                                        <button class="btn btn-primary"><i
+                                                                class="material-icons opacity-10">close</i></button>
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class=" form-group w-100">
+                                        <label for="harga_ShopeeFood">Harga ShopeeFood</label>
+                                        <input type="number" class="form-control border" name="harga_ShopeeFood"
+                                            placeholder="Masukan harga" style="padding: 0.5rem;">
+                                    </div>
+                                    <div class=" form-group w-100">
+                                        <label for="harga_GoFood">Harga GoFood</label>
+                                        <input type="number" class="form-control border" name="harga_GoFood"
+                                            placeholder="Masukan harga" style="padding: 0.5rem;">
+                                    </div>
+                                    <div class=" form-group w-100">
+                                        <label for="harga_GrabFood">Harga GrabFood</label>
+                                        <input type="number" class="form-control border" name="harga_GrabFood"
+                                            placeholder="Masukan harga" style="padding: 0.5rem;">
+                                    </div>
+                                </div>
+                                <input type="number" name="rahasia_varian" value="0" style="display: none;"
+                                    id="rahasiaVarian">
+                                <button type="submit" class="btn btn-dark" style="margin-top: 10px;">Tambah
+                                    Produk</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </dir>
 </div>
 
@@ -36,5 +140,73 @@
         </div>
     </div>
 </div>
+
+<script>
+let hitungVarian = 0;
+const rahasiavarianElm = document.getElementById('rahasiaVarian');
+const containervarianElm = document.getElementById('container-varian');
+const tambahvarianElm = document.getElementById('tambahvarianBtn');
+const fotoprevElm = document.getElementById('fotoprev');
+const fileElm = document.getElementById('inputGroupFile01');
+fileElm.addEventListener('change', (e) => {
+    const file = fileElm.files[0];
+    const blobFile = new Blob([file], {
+        type: file.type
+    });
+    const dataTranfer = new DataTransfer();
+    dataTranfer.items.add(file);
+
+    fotoprevElm.src = URL.createObjectURL(blobFile);
+
+})
+tambahvarianElm.addEventListener('click', (e) => {
+    e.preventDefault()
+    hitungVarian++;
+    rahasiavarianElm.value = Number(rahasiavarianElm.value) + 1;
+    // const itemVarian = document.createElement('div');
+    // itemVarian.classList.add('d-flex');
+    // itemVarian.classList.add('gap-2');
+
+    // <div class="d-flex gap-2">
+    //     <div class="w-100">
+    //         <input type="text" name="namavarian1" placeholder="Nama Varian"
+    //             class="form-control border px-2">
+    //     </div>
+    //     <div class="w-100">
+    //         <input type="number" name="hargavarian1"
+    //             placeholder="Harga Varian" class="form-control border px-2">
+    //     </div>
+    //     <div>
+    //         <button class="btn btn-dark" id="closevarian1"><i
+    //                 class="material-icons opacity-10">close</i></button>
+    //     </div>
+    // </div>
+    containervarianElm.innerHTML +=
+        '<div class="d-flex gap-2" id="itemvarian' + hitungVarian +
+        '"><div class="w-100"><input type="text" name="namavarian' + hitungVarian +
+        '" placeholder="Nama Varian" class="form-control border px-2"></div><div class="w-100"><input type="number" name="hargavarian' +
+        hitungVarian +
+        '" placeholder="Harga Varian" class="form-control border px-2"></div><div><button onclick="closeVarian(' +
+        hitungVarian + ')" type="button" class="btn btn-light" id="closevarian' +
+        hitungVarian + '"><i class="material-icons opacity-10">close</i></button></div></div>'
+
+
+    // const closeVarianElm = document.getElementById("closevarian" + hitungVarian);
+    // closeVarianElm.addEventListener('click', (ev) => {
+    //     ev.preventDefault();
+    //     console.log("ini hapus varian nomor: " + hitungVarian)
+    //     containervarianElm.removeChild(document.getElementById('itemvarian' + hitungVarian));
+    //     rahasiavarianElm.value = Number(rahasiavarianElm.value) - 1;
+    //     console.log(rahasiavarianElm.value)
+    // })
+
+    console.log(rahasiavarianElm.value)
+})
+
+function closeVarian(urutan) {
+    console.log("ini hapus varian nomor: " + urutan);
+    containervarianElm.removeChild(document.getElementById('itemvarian' + urutan));
+}
+</script>
 
 <?= $this->endSection(); ?>
