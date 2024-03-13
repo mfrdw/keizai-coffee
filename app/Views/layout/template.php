@@ -45,7 +45,6 @@
     <?= $this->include('layout/breadcrumb'); ?>
     <?= $this->include('layout/sidebar'); ?>
     <?= $this->renderSection('content'); ?>
-    <?= $this->include('layout/footer'); ?>
 
 
     <!--   Core JS Files   -->

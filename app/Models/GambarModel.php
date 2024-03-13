@@ -15,7 +15,7 @@ class GambarModel extends Model
     public function getGambar($id = false)
     {
         if ($id == false) {
-            return $this->orderBy('gambar_produk', 'asc')->findAll();
+            return $this->orderBy('id', 'asc')->findAll();
         }
         return $this->where(['id' => $id])->first();
     }

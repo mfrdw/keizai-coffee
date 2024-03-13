@@ -24,7 +24,7 @@ class ProdukModel extends Model
     public function getProduk($id = false)
     {
         if ($id == false) {
-            return $this->orderBy('nama_produk', 'asc')->findAll();
+            return $this->orderBy('id', 'asc')->findAll();
         }
         return $this->where(['id' => $id])->first();
     }

@@ -11,7 +11,9 @@ $routes->get('/', 'Administrator::index');
 $routes->get('/listproduct', 'Administrator::listproduct');
 $routes->get('/addproduct', 'Administrator::addproduct');
 $routes->post('/actionaddproduct', 'Administrator::actionaddproduct');
-$routes->get('/editproduct', 'Administrator::editproduct');
+$routes->get('/editproduct/(:any)', 'Administrator::editproduct/$1');
+$routes->post('/actioneditproduct(:segment)', 'Administrator::actioneditproduct/$1');
+$routes->get('/delproduct/(:any)', 'Administrator::delproduct/$1');
 
 $routes->get('/listkategori', 'Administrator::listkategori');
 $routes->get('/addkategori', 'Administrator::addkategori');

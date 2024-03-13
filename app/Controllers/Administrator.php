@@ -114,19 +114,38 @@ class Administrator extends BaseController
         return redirect()->to('/listproduct');
     }
     
-    public function editProduct()
+
+
+
+    public function editProduct($id)
     {
+        $produk = $this->produkModel->getProduk($id);
+        $kategori = $this->kategoriModel->getKategori();
+        $gambar = $this->gambarModel->getGambar($produk['foto_produk']);
         $data = [
-            'title' => 'Edit Produk'
+            'title' => 'Edit Produk',
+            'produk' => $produk,
+            'kategori' => $kategori,
+            'gambar' => $gambar
         ];
-        return view('admin/editProduct', $data);
+        return view('admin/editproduct', $data);
     }
+
+
+
+
     public function delProduct($id)
     {
+        $produk_selected = $this->produkModel->getProduk($id);
         $produk = $this->produkModel->where('id', $id)->delete();
-        $gambar = $this->gambarModel->where('id', $id)->delete();
+        if ($produk_selected['foto_produk']) {
+            $this->gambarModel->where('id', $produk_selected['foto_produk'])->delete();
+        }
+
         return redirect()->to('/listproduct');
     }
+
+
 
 
 
