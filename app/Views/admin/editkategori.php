@@ -9,7 +9,7 @@
                 <h6>Edit Kategori</h6>
             </div>
             <div>
-                <a class="btn btn-dark" data-toggle="modal" data-target="#konfirmasiModal"><i
+                <a class="btn btn-dark btn-sm" data-toggle="modal" data-target="#konfirmasiModal"><i
                         class="material-icons opacity-10">arrow_back</i> Kembali</a>
             </div>
         </div>
@@ -49,7 +49,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="konfirmasiModalLabel">Konfirmasi Pembatalan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="btn btn-dark btn-sm close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -70,8 +70,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="konfirmasiSimpanModalLabel">Konfirmasi Simpan Perubahan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                <button type="button" class="btn-close" aria-label="Close"></button>
+                <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">

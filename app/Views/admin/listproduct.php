@@ -18,7 +18,7 @@
                 <div class="d-flex justify-content-between align-items-center ">
                     <div class="d-flex align-items-center gap-2">
                         <form class="d-flex flex-grow-1 search-box" role="search" id="form-cari">
-                            <div class="input-group">
+                            <div class="input-group carimencari">
                                 <input required type="text" class="form-control search-input" placeholder="Search"
                                     aria-label="Search" aria-describedby="button-addon2">
                                 <button class="btn btn-dark" type="submit"><i class="material-icons">search</i></button>
@@ -28,7 +28,7 @@
                     <div>
                         <!-- <button class="btn btn-light m-0"><i
                                 class="material-icons opacity-10 m-2">filter_list</i>Filter</button> -->
-                        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+                        <button class="btn btn-dark btn-sm" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i
                                 class="material-icons opacity-10 m-2">filter_list</i>Filter</button>
                         <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false"
@@ -36,7 +36,7 @@
                             <div class="offcanvas-header">
                                 <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Filter
                                 </h5>
-                                <button type="button" class="btn btn-dark" data-bs-dismiss="offcanvas"
+                                <button type="button" class="btn btn-dark btn-sm" data-bs-dismiss="offcanvas"
                                     aria-label="Close"><i class="material-icons opacity-10">close</i></button>
                             </div>
                             <div class="offcanvas-body">
