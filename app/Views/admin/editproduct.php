@@ -19,18 +19,23 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="/actioneditproduct" method="post" enctype="multipart/form-data">
+                            <form action="/actioneditproduct/<?= $produk['id'] ?>" method="post"
+                                enctype="multipart/form-data">
                                 <?= csrf_field(); ?>
                                 <div class="d-flex gap-4">
                                     <div style="flex:1;">
                                         <label for="nama_produk">Foto Produk</label>
-                                        <img src="/assets/img/prev.png" alt="prev" class="w-100 mb-2"
-                                            style="max-width: 300px;" id="fotoprev">
+                                        <img src="<?= $produk['foto_produk'] != '' ? '/foto/'.$produk['foto_produk']:"/assets/img/prev.png";?>"
+                                            alt="prev" class="w-100 mb-2" style="max-width: 300px;" id="fotoprev">
                                         <div>
                                             <label class="btn btn-dark" for="inputGroupFile01">Upload</label>
                                             <input type="file" class="form-control" name="foto_produk"
-                                                id="inputGroupFile01" style="display: none;">
-                                            <a href="#" class="btn btn-primary">Hapus</a>
+                                                style="display:none;" id="inputGroupFile01">
+                                            <input type="file" class="form-control" name="foto_produk_fix"
+                                                style="display:none;" id="inputGroupFileFix" disabled>
+
+                                            <button class="btn btn-primary" type="button"
+                                                onclick="hapusGambar()">Hapus</button>
                                         </div>
                                     </div>
                                     <div style="flex:2;">
@@ -78,6 +83,25 @@
                                                     class="material-icons opacity-10">add</i>
                                                 Tambah Varian</button>
                                             <div id="container-varian">
+                                                <?php foreach ($varian as $index => $v) { ?>
+                                                <div class="d-flex gap-2" id="itemvarian<?= $index +1 ?>">
+                                                    <div class="w-100">
+                                                        <input type="text" name="namavarian<?= $index +1 ?>"
+                                                            placeholder="Nama Varian" class="form-control border px-2"
+                                                            value="<?= $v['nama'] ?>">
+                                                    </div>
+                                                    <div class="w-100">
+                                                        <input type="number" name="hargavarian<?= $index +1 ?>"
+                                                            placeholder="Harga Varian" class="form-control border px-2"
+                                                            value="<?= $v['harga'] ?>">
+                                                    </div>
+                                                    <div>
+                                                        <button class="btn btn-primary" id="closevarian<?= $index +1 ?>"
+                                                            onclick="closeVarian(<?= $index +1 ?>)" type="button"><i
+                                                                class="material-icons opacity-10">close</i></button>
+                                                    </div>
+                                                </div>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </div>
@@ -135,5 +159,72 @@
         </div>
     </div>
 </div>
+
+
+<script>
+let hitungVarian = <?= count($varian) ?>;
+const rahasiavarianElm = document.getElementById('rahasiaVarian');
+const containervarianElm = document.getElementById('container-varian');
+const tambahvarianElm = document.getElementById('tambahvarianBtn');
+const fotoprevElm = document.getElementById('fotoprev');
+const fileElm = document.getElementById('inputGroupFile01');
+const fileFixElm = document.getElementById('inputGroupFileFix');
+fileElm.addEventListener('change', (e) => {
+    const file = fileElm.files[0];
+    const blobFile = new Blob([file], {
+        type: file.type
+    });
+
+    const dataTranfer = new DataTransfer();
+    dataTranfer.items.add(file);
+    fileFixElm.files = dataTranfer.files;
+    fileFixElm.disabled = false;
+
+    fotoprevElm.src = URL.createObjectURL(blobFile);
+
+})
+tambahvarianElm.addEventListener('click', (e) => {
+    e.preventDefault()
+    hitungVarian++;
+    rahasiavarianElm.value = Number(rahasiavarianElm.value) + 1;
+    // const itemVarian = document.createElement('div');
+    // itemVarian.classList.add('d-flex');
+    // itemVarian.classList.add('gap-2');
+
+    // <div class="d-flex gap-2">
+    //     <div class="w-100">
+    //         <input type="text" name="namavarian1" placeholder="Nama Varian"
+    //             class="form-control border px-2">
+    //     </div>
+    //     <div class="w-100">
+    //         <input type="number" name="hargavarian1"
+    //             placeholder="Harga Varian" class="form-control border px-2">
+    //     </div>
+    //     <div>
+    //         <button class="btn btn-dark" id="closevarian1"><i
+    //                 class="material-icons opacity-10">close</i></button>
+    //     </div>
+    // </div>
+    containervarianElm.innerHTML +=
+        '<div class="d-flex gap-2" id="itemvarian' + hitungVarian +
+        '"><div class="w-100"><input type="text" name="namavarian' + hitungVarian +
+        '" placeholder="Nama Varian" class="form-control border px-2"></div><div class="w-100"><input type="number" name="hargavarian' +
+        hitungVarian +
+        '" placeholder="Harga Varian" class="form-control border px-2"></div><div><button onclick="closeVarian(' +
+        hitungVarian + ')" type="button" class="btn btn-primary" id="closevarian' +
+        hitungVarian + '"><i class="material-icons opacity-10">close</i></button></div></div>'
+    console.log(rahasiavarianElm.value)
+})
+
+function closeVarian(urutan) {
+    console.log("ini hapus varian nomor: " + urutan);
+    containervarianElm.removeChild(document.getElementById('itemvarian' + urutan));
+}
+
+function hapusGambar() {
+    fotoprevElm.src = "/assets/img/prev.png";
+    fileFixElm.disabled = true
+}
+</script>
 
 <?= $this->endSection(); ?>

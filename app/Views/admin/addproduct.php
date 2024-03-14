@@ -24,12 +24,16 @@
                                     <div style="flex:1;">
                                         <label for="nama_produk">Foto Produk</label>
                                         <img src="/assets/img/prev.png" alt="prev" class="w-100 mb-2"
-                                            style="max-width: 300px;" id="fotoprev" required>
+                                            style="max-width: 300px;" id="fotoprev">
                                         <div>
                                             <label class="btn btn-dark" for="inputGroupFile01">Upload</label>
                                             <input type="file" class="form-control" name="foto_produk"
-                                                id="inputGroupFile01" style="display: none;" required>
-                                            <a href="#" class="btn btn-primary">Hapus</a>
+                                                style="display:none;" id="inputGroupFile01">
+                                            <input type="file" class="form-control" name="foto_produk_fix"
+                                                style="display:none;" id="inputGroupFileFix" disabled>
+
+                                            <button class="btn btn-primary" type="button"
+                                                onclick="hapusGambar()">Hapus</button>
                                         </div>
                                     </div>
                                     <div style="flex:2;">
@@ -151,13 +155,17 @@ const containervarianElm = document.getElementById('container-varian');
 const tambahvarianElm = document.getElementById('tambahvarianBtn');
 const fotoprevElm = document.getElementById('fotoprev');
 const fileElm = document.getElementById('inputGroupFile01');
+const fileFixElm = document.getElementById('inputGroupFileFix');
 fileElm.addEventListener('change', (e) => {
     const file = fileElm.files[0];
     const blobFile = new Blob([file], {
         type: file.type
     });
+
     const dataTranfer = new DataTransfer();
     dataTranfer.items.add(file);
+    fileFixElm.files = dataTranfer.files;
+    fileFixElm.disabled = false;
 
     fotoprevElm.src = URL.createObjectURL(blobFile);
 
@@ -209,6 +217,11 @@ tambahvarianElm.addEventListener('click', (e) => {
 function closeVarian(urutan) {
     console.log("ini hapus varian nomor: " + urutan);
     containervarianElm.removeChild(document.getElementById('itemvarian' + urutan));
+}
+
+function hapusGambar() {
+    fotoprevElm.src = "/assets/img/prev.png";
+    fileFixElm.disabled = true
 }
 </script>
 

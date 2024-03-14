@@ -12,7 +12,7 @@ class ProdukModel extends Model
         'nama_produk',
         'harga_produk',
         'harga_shopeefood',
-        'harga-gofood',
+        'harga_gofood',
         'harga_grabfood',
         'kategori_produk',
         'foto_produk',

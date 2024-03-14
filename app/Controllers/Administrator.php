@@ -30,10 +30,18 @@ class Administrator extends BaseController
 
     public function listproduct()
     {
+        $kategori = $this->kategoriModel->getKategori(); 
         $produkAll = $this->produkModel->getProduk();
+        $produkAllJson = [];
+        foreach ($produkAll as $p) {
+            $p['varian'] = json_decode($p['varian'], true);
+            array_push($produkAllJson, $p);
+        }
         $data = [
             'title' => 'List Produk',
+            'kategori' => $kategori,
             'produk' => $produkAll,
+            'produkJson' => json_encode($produkAllJson)
         ];
         return view('admin/listproduct', $data);
     }
@@ -62,27 +70,15 @@ class Administrator extends BaseController
         $kategori = $this->request->getVar('kategori_produk');
         $stok = $this->request->getVar('stok_produk');
         $deskripsi = $this->request->getVar('deskripsi_produk');
-        $foto = file_get_contents($this->request->getFile("foto_produk"));
         $harga_shopee = $this->request->getVar('harga_ShopeeFood');
         $harga_gofood = $this->request->getVar('harga_GoFood');
         $harga_grabfood = $this->request->getVar('harga_GrabFood');
         $jmlVarian = $this->request->getVar('rahasia_varian');
         $varian = [];
-
-        // $varian = [
-        //     [
-        //         'nama' => 'apaalh',
-        //         'harga' => 15000
-        //     ],
-        //     [
-        //         'nama' => 'apaalh',
-        //         'harga' => 15000
-        //     ],
-        //     [
-        //         'nama' => 'apaalh',
-        //         'harga' => 15000
-        //     ],
-        // ];
+        if(!empty($_FILES["foto_produk_fix"]['tmp_name']))
+            $foto = file_get_contents($this->request->getFile("foto_produk_fix"));
+        else
+            $foto = '';
 
         for ($i=1; $i <= $jmlVarian; $i++) { 
             $itemVarian = [
@@ -103,19 +99,19 @@ class Administrator extends BaseController
             'harga_shopeefood' => $harga_shopee,
             'harga_gofood' => $harga_gofood,
             'harga_grabfood' => $harga_grabfood,
-            'foto_produk' => $id,
+            'foto_produk' => $foto != '' ? $id:'',
             'varian'=> json_encode($varian)
         ]);
 
-        $this->gambarModel->insert([
-            'id' => $id,
-            'gambar_produk'=> $foto
-        ]);
+        if($foto != ''){
+            $this->gambarModel->insert([
+                'id' => $id,
+                'gambar_produk'=> $foto
+            ]);
+        }    
         return redirect()->to('/listproduct');
     }
     
-
-
 
     public function editProduct($id)
     {
@@ -126,13 +122,68 @@ class Administrator extends BaseController
             'title' => 'Edit Produk',
             'produk' => $produk,
             'kategori' => $kategori,
-            'gambar' => $gambar
+            'gambar' => $gambar,
+            'varian' => json_decode($produk['varian'],true)
         ];
         return view('admin/editproduct', $data);
     }
 
+    public function actionEditProduk($id)
+    {
+        $nama = $this->request->getVar('nama_produk');
+        $harga = $this->request->getVar('harga_produk');
+        $kategori = $this->request->getVar('kategori_produk');
+        $stok = $this->request->getVar('stok_produk');
+        $deskripsi = $this->request->getVar('deskripsi_produk');
+        $harga_shopee = $this->request->getVar('harga_ShopeeFood');
+        $harga_gofood = $this->request->getVar('harga_GoFood');
+        $harga_grabfood = $this->request->getVar('harga_GrabFood');
+        $jmlVarian = $this->request->getVar('rahasia_varian');
+        $varian = [];
+        if(!empty($_FILES["foto_produk_fix"]['tmp_name']))
+            $foto = file_get_contents($this->request->getFile("foto_produk_fix"));
+        else
+            $foto = '';
 
+        for ($i=1; $i <= $jmlVarian; $i++) { 
+            $itemVarian = [
+                'nama' => $this->request->getVar('namavarian'.$i),
+                'harga' => $this->request->getVar('hargavarian'.$i)
+            ];
+            array_push($varian, $itemVarian);
+        }
 
+        $produkSekarang = $this->produkModel->getProduk($id);
+        $idbaru = time();
+        $this->produkModel->where('id', $id)->set([
+            'nama_produk' => $nama,
+            'harga_produk' => $harga,
+            'kategori_produk' => $kategori,
+            'stok_produk' => $stok,
+            'deskripsi_produk' => $deskripsi,
+            'varian_produk' => $nama,
+            'harga_shopeefood' => $harga_shopee,
+            'harga_gofood' => $harga_gofood,
+            'harga_grabfood' => $harga_grabfood,
+            'foto_produk' => $foto != '' ? ($produkSekarang['foto_produk'] ? $produkSekarang['foto_produk']:$idbaru) : $produkSekarang['foto_produk'],
+            'varian'=> json_encode($varian)
+        ])->update();
+
+        if($foto != ''){
+            if($produkSekarang['foto_produk']){
+                $this->gambarModel->where('id',$produkSekarang['foto_produk'])->set([
+                    'gambar_produk'=> $foto
+                ])->update();
+            } else {
+                $this->gambarModel->insert([
+                    'id' => $idbaru,
+                    'gambar_produk'=> $foto
+                ]);
+            }
+        }    
+        return redirect()->to('/listproduct');
+
+    }
 
     public function delProduct($id)
     {
