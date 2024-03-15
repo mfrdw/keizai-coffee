@@ -32,12 +32,18 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white" href="#">
+                <a class="nav-link text-white" onclick="laporanKeuangan()">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">table_view</i>
+                        <i id="laporanIcon" class="material-icons opacity-10">table_view</i>
                     </div>
                     <span class="nav-link-text ms-1">Laporan</span>
                 </a>
+                <div id="laporanCollapse" style="display: none;" class="text-white">
+                    <a class="nav-link text-white" href="/laporankeuangan" onclick="laporanKeuangan()">
+                        <i class="material-icons opacity-10" style="font-size: 20px;">arrow_forward</i>
+                        <span class="nav-link-text ms-1">Laporan Penjualan</span>
+                    </a>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white <?= $title == 'List Produk' ? "active bg-gradient-primary " : ""; ?>"
@@ -79,6 +85,18 @@
         } else {
             collapseDiv.style.display = "none";
             icon.innerHTML = "folder_open";
+        }
+    }
+
+    function laporanKeuangan() {
+        var lapcollapseDiv = document.getElementById("laporanCollapse");
+        var lapicon = document.getElementById("laporanIcon");
+        if (lapcollapseDiv.style.display === "none") {
+            lapcollapseDiv.style.display = "block";
+            icon.innerHTML = "table";
+        } else {
+            lapcollapseDiv.style.display = "none";
+            lapicon.innerHTML = "table_view";
         }
     }
     </script>

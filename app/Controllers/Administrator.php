@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\GambarModel;
 use App\Models\KategoriModel;
 use App\Models\ProdukModel;
+use App\Models\TransaksiModel;
 use CodeIgniter\Controller;
 
 class Administrator extends BaseController
@@ -13,11 +14,13 @@ class Administrator extends BaseController
     protected $produkModel;
     protected $kategoriModel;
     protected $gambarModel;
+    protected $transaksiModel;
     public function __construct()
     {
         $this->produkModel      = new ProdukModel();
         $this->kategoriModel    = new KategoriModel();
         $this->gambarModel      = new GambarModel();
+        $this->transaksiModel   = new TransaksiModel();
     }
     public function index()
     {
@@ -26,6 +29,25 @@ class Administrator extends BaseController
         ];
         return view('admin/dashboard', $data);
         
+    }
+
+    public function laporanKeuangan()
+    {
+        $transaksi = $this->transaksiModel->getTransaksi();
+        $transaksiterbaru = $this->transaksiModel->orderBy('tanggal', 'desc')->first();
+        $transaksiJson = [];
+        foreach ($transaksi as $t) {
+            $t['item_pesanan'] = json_decode($t['item_pesanan'], true);
+            array_push($transaksiJson, $t);
+        }
+        $data = [
+            'title' => 'Laporan Keuangan',
+            'transaksi' => $transaksi,
+            'transaksiterbaru' => $transaksiterbaru,
+            'transaksiJson' => json_encode($transaksiJson)
+        ];
+        return view('admin/laporankeuangan', $data);
+
     }
 
     public function listproduct()
@@ -259,7 +281,7 @@ class Administrator extends BaseController
         return view('admin/editkategori', $data);
     }
 
-public function actioneditkategori($id)
+    public function actioneditkategori($id)
     {
         $kategori = $this->kategoriModel->find($id);
         if (!$kategori) {
@@ -294,5 +316,9 @@ public function actioneditkategori($id)
         $produk = $this->kategoriModel->where('id', $id)->delete();
         return redirect()->to('/listkategori');
     }
+
+
+    //Laporan
+    
     
 }

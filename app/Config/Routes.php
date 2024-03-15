@@ -23,6 +23,8 @@ $routes->post('/actioneditkategori/(:segment)', 'Administrator::actioneditkatego
 $routes->get('/delkategori/(:any)', 'Administrator::delkategori/$1');
 
 
+$routes->get('/laporankeuangan', 'Administrator::laporanKeuangan');
+
 
 
 
